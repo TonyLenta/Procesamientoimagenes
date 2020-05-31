@@ -113,15 +113,17 @@ function btnnuevo_Callback(hObject, eventdata, handles)
 cla;
 
 
+
 % --- Executes on button press in btnguardar.
 function btnguardar_Callback(hObject, eventdata, handles)
 global a;
 [Filename Path]=uiputfile('*.jpg','Abrir imagen');
 if isequal(Filename,0)
-    errordlg('No se ha seleccionado archivo, selecione uno por favor', 'Error');
+    errordlg('No se ha seleccionado ruta archivo, selecione uno por favor y coloque nombre al archivo', 'Error');
 else
     imwrite(a,strcat(Path,Filename));
     msgbox('Se guardo con exito el archivo', 'Guardar imagen');
+
 end
 
 
