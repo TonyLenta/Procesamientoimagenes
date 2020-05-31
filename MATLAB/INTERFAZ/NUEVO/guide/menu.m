@@ -91,6 +91,7 @@ else
     prop=imfinfo(strcat(Path,Filename));    %Variable para leer informacion del archivo
     set(handles.txtformato,'String', prop.Format);% Agrega el formato a la etiqueta formato
     set(handles.txtnombrearchivo,'String',prop.Filename); %Muestra el nombre de la imagen
+    set(handles.txttamanoarchivo,'String',prop.FileSize); %Muestra el tamaño de la imagen
     %Condicional para verificar si la imagen es de color
     tipo=prop.ColorType;
     if(tipo=='truecolor');
