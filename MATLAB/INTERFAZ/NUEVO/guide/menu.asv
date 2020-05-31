@@ -76,7 +76,7 @@ varargout{1} = handles.output;
 % --- Executes on button press in btnabrir.
 function btnabrir_Callback(hObject, eventdata, handles)
 global a;
-[Filename Path]=uigetfile({'*.jpg';'*.png'},'Abrir imagen');
+[Filename Path]=uigetfile('*.jpg','*.png','Abrir imagen');
 if isequal(Filename,0)
     errordlg('Error no se ha seleccionado archivo', 'Error');
 else
@@ -90,18 +90,15 @@ else
     %Manda informacion al grupo de propiedades
     prop=imfinfo(strcat(Path,Filename));    %Variable para leer informacion del archivo
     set(handles.txtformato,'String', prop.Format);% Agrega el formato a la etiqueta formato
-    
-    %Condicional para verificar si la imagen es de color
+    %Condicional para verific
     tipo=prop.ColorType;
     if(tipo=='truecolor');
-        set(handles.txttipoimagen,'string','Color');
+        set(handles.txttipoimagen,'string','Es una imagen a color');
     elseif(tipo=='GrayScale')
-        set(handles.txttipoimagen,'String','Gris');
+        set(handles.txttipoimagen,'String','Es una imagen de grises');
     else
-        set(handles.txttipoimagen,'String','Blanco y negro');
+        set(handles.txttipoimagen,'String','Imagen blanco y negro');
     end
-    
-    
 end
 
 
