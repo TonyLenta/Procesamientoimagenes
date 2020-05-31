@@ -22,7 +22,7 @@ function varargout = menu(varargin)
 
 % Edit the above text to modify the response to help menu
 
-% Last Modified by GUIDE v2.5 26-May-2020 19:18:29
+% Last Modified by GUIDE v2.5 26-May-2020 19:58:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -87,6 +87,7 @@ else
     set(handles.btnabrir,'enable','off');
     prop=imfinfo(strcat(Path,Filename));
     set(handles.txtformato,'String', prop.Format);
+    set(handles.txtcalidad,'enable','on');
     tipo=prop.ColorType;
     if(tipo=='truecolor');
         set(handles.txttipoimagen,'string','Es una imagen a color');
@@ -125,4 +126,27 @@ function btnsalir_Callback(hObject, eventdata, handles)
 op=questdlg('Desea salir de la aplicacion','Salir','Si','No','Si');
 if (op=='Si')
     delete(handles.figure1);
+end
+
+
+
+function txtcalidad_Callback(hObject, eventdata, handles)
+% hObject    handle to txtcalidad (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txtcalidad as text
+%        str2double(get(hObject,'String')) returns contents of txtcalidad as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txtcalidad_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txtcalidad (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
 end
