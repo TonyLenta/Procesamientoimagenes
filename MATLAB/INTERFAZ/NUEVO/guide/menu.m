@@ -146,19 +146,20 @@ valuecalidad= get(handles.txtcalidad,'String');
 
 if (valuecalidad~='-') 
 calidad= get(handles.txtcalidad,'String');
-disp(calidad);    
+%str2num(calidad);
+
 [Filename Path]=uiputfile('*.jpg','Abrir imagen');
 if isequal(Filename,0)
     errordlg('No se ha seleccionado ruta archivo, selecione uno por favor y coloque nombre al archivo', 'Error');
+    %set(handles.txtcalidad,'String','-')
 else  
-    imwrite(a,strcat(Path,Filename), 'quality', 'calidad');
+    imwrite(a,strcat(Path,Filename), 'quality',str2double(calidad) );
     msgbox('Se guardo con exito el archivo', 'Guardar imagen');
 end
 
-
 else
   
-errordlg('Error no se ha elegido calidad de imagen, seleccione del 0 al 100', 'Error');
+errordlg('Error no se ha elegido calidad de imagen, ingrese un numero del 0 al 100', 'Error');
 
 end
 % --- Executes on button press in btnabrir.
