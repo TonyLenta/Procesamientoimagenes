@@ -83,6 +83,7 @@ else
     a=imread(strcat(Path,Filename));
     imshow(a);
     msgbox('Se abrio imagen con exito', 'Abrir imagen');
+    set(handles.btnnuevo, 'enable','on'); %Habilita el boton nuevo
     set(handles.btnguardar, 'enable','on'); %Habilita el boton guardar
     set(handles.btnabrir,'enable','off');   %Desabilita el boton abrir
     set(handles.txtcalidad,'enable','on');  %Habilita el texto calidad
@@ -110,7 +111,22 @@ end
 
 % --- Executes on button press in btnnuevo.
 function btnnuevo_Callback(hObject, eventdata, handles)
+%Pregunta si dese abrir una nueva imagen
+op=questdlg('Desea abrir una nueva imagen','Nuevo','Si','No','Si');
+if (op=='Si')
+%Limpia imagen
 cla;
+%limpia textos
+set(handles.txtformato,'String', '');
+    set(handles.txtnombrearchivo,'String',''); 
+    set(handles.txttamanoarchivo,'String',''); 
+    set(handles.txtaltura,'String',''); 
+    set(handles.txtanchura,'String','');
+    set(handles.txttipoimagen,'String',''); 
+end
+
+
+
 
 
 
