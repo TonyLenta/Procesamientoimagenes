@@ -76,7 +76,7 @@ varargout{1} = handles.output;
 % --- Executes on button press in btnabrir.
 function btnabrir_Callback(hObject, eventdata, handles)
 global a;
-[Filename Path]=uigetfile('*.jpg','Abrir imagen');
+[Filename Path]=uigetfile('*.jpg','*.png','Abrir imagen');
 if isequal(Filename,0)
     errordlg('Error no se ha seleccionado archivo', 'Error');
 else
