@@ -148,7 +148,9 @@ if (valuecalidad~='-')
 calidad= get(handles.txtcalidad,'String');
 %str2num(calidad);
 
-[Filename Path]=uiputfile('*.jpg','Abrir imagen');
+if (str2double(calidad)>=0 && str2double(calidad)<=100)% Validacion de numeros en el txtcalidad
+    
+[Filename Path]=uiputfile('*.jpg','Abrir imagen');%Guarda la imagen en una ruta en el pc
 if isequal(Filename,0)
     errordlg('No se ha seleccionado ruta archivo, selecione uno por favor y coloque nombre al archivo', 'Error');
     %set(handles.txtcalidad,'String','-')
@@ -158,8 +160,11 @@ else
 end
 
 else
-  
-errordlg('Error no se ha elegido calidad de imagen, ingrese un numero del 0 al 100', 'Error');
+errordlg('Debe introducir solo numeros entre [0;100]','Error')
+end
+
+else  
+errordlg('Error no ha elegido calidad de imagen, ingrese un numero del 0 al 100', 'Error');
 
 end
 % --- Executes on button press in btnabrir.
