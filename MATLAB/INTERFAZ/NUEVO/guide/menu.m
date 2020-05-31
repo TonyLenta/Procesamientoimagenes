@@ -76,15 +76,12 @@ varargout{1} = handles.output;
 % --- Executes on button press in btnabrir.
 function btnabrir_Callback(hObject, eventdata, handles)
 global a;
-global valuecalidad;
+
 [Filename Path]=uigetfile({'*.jpg';'*.png'},'Abrir imagen');
 if isequal(Filename,0)
-    valuecalidad=0;
-    disp(valuecalidad);
-    errordlg('Error no se ha seleccionado archivo', 'Error');
+   errordlg('Error no se ha seleccionado archivo', 'Error');
 else
-    valuecalidad=1;
-    disp(valuecalidad);
+   
     a=imread(strcat(Path,Filename));
     imshow(a);
     msgbox('Se abrio imagen con exito', 'Abrir imagen');
@@ -120,8 +117,6 @@ global valuecalidad;
 %Pregunta si dese abrir una nueva imagen
 op=questdlg('Desea abrir una nueva imagen','Nuevo','Si','No','Si');
 if (op=='Si')
-%Cambia valor de bandera de control calidad imagen
-valuecalidad=0;
 %Habilita el boton Abrir
 set(handles.btnabrir,'enable','on');
 %Habilita el boton guardar
@@ -135,6 +130,8 @@ set(handles.txtformato,'String', '');
     set(handles.txtaltura,'String',''); 
     set(handles.txtanchura,'String','');
     set(handles.txttipoimagen,'String',''); 
+    set(handles.txtcalidad,'String','-');
+    set(handles.txtcalidad,'enable','off');
 end
 
 
@@ -145,28 +142,25 @@ end
 % --- Executes on button press in btnguardar.
 function btnguardar_Callback(hObject, eventdata, handles)
 global a;
-global valuecalidad;
-disp(valuecalidad);
+valuecalidad= get(handles.txtcalidad,'String');
 
-if (valuecalidad==1) 
+if (valuecalidad~='-') 
 calidad= get(handles.txtcalidad,'String');
 disp(calidad);    
 [Filename Path]=uiputfile('*.jpg','Abrir imagen');
 if isequal(Filename,0)
     errordlg('No se ha seleccionado ruta archivo, selecione uno por favor y coloque nombre al archivo', 'Error');
-else
-    imwrite(a,strcat(Path,Filename), 'quality', calidad);
+else  
+    imwrite(a,strcat(Path,Filename), 'quality', 'calidad');
     msgbox('Se guardo con exito el archivo', 'Guardar imagen');
-
 end
 
 
 else
   
-errordlg('Error no se ha calidad de imagen, seleccione del 1 al 5', 'Error');
+errordlg('Error no se ha elegido calidad de imagen, seleccione del 0 al 100', 'Error');
 
 end
-
 % --- Executes on button press in btnabrir.
 function pushbutton4_Callback(hObject, eventdata, handles)
 
