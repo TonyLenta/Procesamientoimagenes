@@ -92,6 +92,8 @@ else
     set(handles.txtformato,'String', prop.Format);% Agrega el formato a la etiqueta formato
     set(handles.txtnombrearchivo,'String',prop.Filename); %Muestra el nombre de la imagen
     set(handles.txttamanoarchivo,'String',prop.FileSize); %Muestra el tamaño de la imagen
+    set(handles.txtaltura,'String',prop.Height); %Muesta la altura de la imagen
+    set(handles.txtanchura,'String',prop.Width); % Muestra la anchura de la imagen
     %Condicional para verificar si la imagen es de color
     tipo=prop.ColorType;
     if(tipo=='truecolor');
