@@ -7,9 +7,9 @@ else
     imshow(a);
     title('Imagen 1');
     c=imfinfo(strcat(Path,Filename));
-   % disp(c.Filename);
-   % disp(c.Filesize);
-   % disp(c.Format);
+   % disp(c.Filename);  %Nombre de archivo
+   % disp(c.FileSize);  %Tamaño de archivo
+   % disp(c.Format);    %Formato de archivo
     improfile;
     
 end
