@@ -28,7 +28,7 @@ function varargout = Editor_de_color(varargin)
 
 % Edit the above text to modify the response to help Editor_de_color
 
-% Last Modified by GUIDE v2.5 07-Jun-2020 21:13:58
+% Last Modified by GUIDE v2.5 07-Jun-2020 22:45:43
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -99,7 +99,9 @@ else
     set(handles.sliderg, 'enable','on');
     set(handles.sliderb, 'enable','on');
     a=imread(strcat(Path,Filename));
-    imshow(a);
+    img=im2uint8(a);
+    subplot(1,2,1);
+    imshow(img);
     msgbox('Se abrio imagen con exito', 'Abrir imagen');
 end
 % --------------------------------------------------------------------
@@ -116,18 +118,18 @@ set(handles.sliderr, 'enable','off');
 set(handles.sliderg, 'enable','off');
 set(handles.sliderb, 'enable','off');
 set(handles.btnaplicarcolor, 'enable','off');
-%Coloca los slider a cero
-r=set(handles.sliderr,'Value', 0);
-g=set(handles.sliderg,'Value', 0);
-b=set(handles.sliderb,'Value', 0);
+
 %Obtiene los valores de slider en cero y los coloca en sus respectivas
 %etiquetas
-set(handles.lblnumr,'String',r);
-set(handles.lblnumg,'String',g); 
-set(handles.lblnumb,'String',b); 
+set(handles.lblnumr,'String','0');
+set(handles.lblnumg,'String','0'); 
+set(handles.lblnumb,'String','0'); 
 
+set(handles.sliderr, 'Value',0.0);
+set(handles.sliderg, 'Value',0.0);
+set(handles.sliderb, 'Value',0.0);
 %Coloca el color por defecto
-set(handles.panelcolor,'BackgroundColor',[r g b]);
+set(handles.imagentest,'Color',[0.0 0.0 0.0]);
    
 end
 
@@ -152,6 +154,22 @@ end
 
 % --- Executes on button press in btnaplicarcolor.
 function btnaplicarcolor_Callback(hObject, eventdata, handles)
+global a;
+%A las variables r,g y b obtiene el valor del slider y almacena.
+%Obtiene valores de los slider
+r=get(handles.sliderr,'Value');
+g=get(handles.sliderg,'Value');
+b=get(handles.sliderb,'Value');
+cbimg=a;
+cbimg(:,:,1)=r;%Color rojo
+cbimg(:,:,2)=g;%Color rojo
+cbimg(:,:,3)=b;%Color rojo
+img=im2uint8(cbimg);
+subplot(1,2,2);
+imshow (img);
+
+
+
 
 
 % --- Executes on slider movement.
@@ -162,7 +180,7 @@ g=get(handles.sliderg,'Value');
 b=get(handles.sliderb,'Value');
 %A las etiguetas de r,g y b se le asigna el valor obtenido de los slider
 set(handles.lblnumr,'String',r);
-set(handles.panelcolor,'BackgroundColor',[r g b]);
+set(handles.imagentest,'Color', [r g b]);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -183,7 +201,7 @@ r=get(handles.sliderr,'Value');
 g=get(handles.sliderg,'Value');
 b=get(handles.sliderb,'Value');
 set(handles.lblnumg,'String',g);
-set(handles.panelcolor,'BackgroundColor',[r g b]);
+set(handles.imagentest,'Color', [r g b]);
 
 % --- Executes during object creation, after setting all properties.
 function sliderg_CreateFcn(hObject, eventdata, handles)
@@ -203,8 +221,7 @@ r=get(handles.sliderr,'Value');
 g=get(handles.sliderg,'Value');
 b=get(handles.sliderb,'Value');
 set(handles.lblnumb,'String',b);
-set(handles.panelcolor,'BackgroundColor',[r g b]);
-
+set(handles.imagentest,'Color', [r g b]);
 % --- Executes during object creation, after setting all properties.
 function sliderb_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to sliderb (see GCBO)
@@ -222,3 +239,12 @@ function lblnumr_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to lblnumr (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
+
+
+% --- Executes during object creation, after setting all properties.
+function imagencolor_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to imagencolor (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: place code in OpeningFcn to populate imagencolor
