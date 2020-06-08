@@ -81,52 +81,66 @@ varargout{1} = handles.output;
 
 % --------------------------------------------------------------------
 function mnuopciones_Callback(hObject, eventdata, handles)
-% hObject    handle to mnuopciones (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
- set(handles.mnunuevo, 'enable','off'); %Desabilita el boton nuevo
- set(handles.mnuguardar, 'enable','off'); %Desabilita el boton guardar
- set(handles.sliderr, 'enable','off');
- set(handles.sliderg, 'enable','off');
- set(handles.sliderb, 'enable','off');
- set(handles.btnaplicarcolor, 'enable','off');
+ 
+ 
 % --------------------------------------------------------------------
 function mnuabrir_Callback(hObject, eventdata, handles)
-% hObject    handle to mnuabrir (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 global a;
-
 [Filename Path]=uigetfile({'*.jpg';'*.png'},'Abrir imagen');
 if isequal(Filename,0)
    errordlg('Error no se ha seleccionado archivo', 'Error');
 else
-   
-    a=imread(strcat(Path,Filename));
-    imshow(a);
-    msgbox('Se abrio imagen con exito', 'Abrir imagen');
-     %Menu de opciones configuraciones
+    %Menu de opciones configuraciones
+    set(handles.mnuabrir,'enable','off');   %Desabilita el boton abrir
     set(handles.mnunuevo, 'enable','on'); %Habilita el boton nuevo
     set(handles.mnuguardar, 'enable','on'); %Habilita el boton guardar
-    set(handles.mnuabrir,'enable','off');   %Desabilita el boton abrir
     set(handles.btnaplicarcolor, 'enable','on');
     set(handles.sliderr, 'enable','on');
     set(handles.sliderg, 'enable','on');
     set(handles.sliderb, 'enable','on');
+    a=imread(strcat(Path,Filename));
+    imshow(a);
+    msgbox('Se abrio imagen con exito', 'Abrir imagen');
 end
 % --------------------------------------------------------------------
 function mnunuevo_Callback(hObject, eventdata, handles)
-% hObject    handle to mnunuevo (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+%Pregunta si dese abrir una nueva imagen
+op=questdlg('Desea abrir una nueva imagen','Nuevo','Si','No','Si');
+if (op=='Si')
+%Limpia imagen
+cla;
+set(handles.mnuabrir,'enable','on');   %Desabilita el boton abrir
+set(handles.mnunuevo, 'enable','off'); %Habilita el boton nuevo
+set(handles.mnuguardar, 'enable','off'); %Habilita el boton guardar
+set(handles.sliderr, 'enable','off');
+set(handles.sliderg, 'enable','off');
+set(handles.sliderb, 'enable','off');
+set(handles.btnaplicarcolor, 'enable','off');
+%Coloca los slider a cero
+r=set(handles.sliderr,'Value', 0);
+g=set(handles.sliderg,'Value', 0);
+b=set(handles.sliderb,'Value', 0);
+%Obtiene los valores de slider en cero y los coloca en sus respectivas
+%etiquetas
+set(handles.lblnumr,'String',r);
+set(handles.lblnumg,'String',g); 
+set(handles.lblnumb,'String',b); 
 
+%Coloca el color por defecto
+set(handles.panelcolor,'BackgroundColor',[r g b]);
+   
+end
 
 % --------------------------------------------------------------------
 function mnuguardar_Callback(hObject, eventdata, handles)
-% hObject    handle to mnuguardar (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
+[Filename Path]=uiputfile('*.jpg','Abrir imagen');%Guarda la imagen en una ruta en el pc
+if isequal(Filename,0)
+    errordlg('No se ha seleccionado ruta archivo, selecione uno por favor y coloque nombre al archivo', 'Error');
+    %set(handles.txtcalidad,'String','-')
+else  
+    imwrite(a,strcat(Path,Filename), 'quality',str2double(calidad) );
+    msgbox('Se guardo con exito el archivo', 'Guardar imagen');
+end
 
 % --------------------------------------------------------------------
 function mnusalir_Callback(hObject, eventdata, handles)
@@ -138,9 +152,6 @@ end
 
 % --- Executes on button press in btnaplicarcolor.
 function btnaplicarcolor_Callback(hObject, eventdata, handles)
-% hObject    handle to btnaplicarcolor (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
 
 % --- Executes on slider movement.
